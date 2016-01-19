@@ -46,12 +46,12 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'rules' => [
-                '<action:(login|logout|about)>' => 'site/<action>'
-            ]
-        ],
+        // 'urlManager' => [
+        //     'enablePrettyUrl' => true,
+        //     'rules' => [
+        //         '<action:(login|logout|about)>' => 'site/<action>'
+        //     ]
+        // ],
         'assetManager' => [
             'class' => 'app\helpers\AssetManager',
             'isPublish' => false,

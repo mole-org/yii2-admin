@@ -83,6 +83,7 @@ class SiteController extends Controller
             return "$name: $message";
         } else {
             if ($exception instanceof \yii\web\UnauthorizedHttpException) {
+                $exception->statusCode = 302;
                 if ($this->request->isGet) {
                     $response = Yii::$app->getResponse();
                     $response->cookies->add(new \yii\web\Cookie([
