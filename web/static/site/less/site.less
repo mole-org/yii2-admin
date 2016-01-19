@@ -1,0 +1,392 @@
+// Core variables and mixins
+@import "bootstrap-3.2.0/less/variables.less";
+@import "bootstrap-3.2.0/less/mixins.less";
+@import (inline) "animate.css";
+@import (inline) "bootstrap.vertical-tabs.css";
+@import "message.less";
+
+/* mixin */
+.font14() {
+  font-size: 14px;
+  line-height: 1.428571429;
+}
+
+/* Global Styles */
+body {
+  background-color: #f8f8f8;
+}
+
+
+/* Login page */
+.login-panel {
+  margin-top: 25%;
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    .font14();
+    padding: 6px 12px;
+    height: 32px;
+    line-height: 18px;
+  }  
+}
+
+.login-modal {
+  .modal-dialog {
+    margin-top: 10%;
+  }
+  .login-panel {
+    margin: -15px;
+  }
+
+  #login-form {
+    width: 300px;
+    margin: auto;
+  }
+}
+
+/* Normal page */
+#wrapper {
+  width: 100%;
+}
+
+#page-wrapper {
+  padding: 0 15px;
+  min-height: 568px;
+  background-color: #fff;
+}
+
+/* Navigation */
+.navbar-top-links {
+  li {
+    display: inline-block;
+    .font14();
+
+    &:last-child {
+      margin-right: 15px;
+    }
+
+    a {
+      padding: 15px;
+      min-height: 40px;
+    }
+  }
+  
+  .dropdown-menu {
+    li {
+      display: block;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      a {
+        padding: 3px 20px;
+        min-height: 0;
+
+        div {
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+  .dropdown-messages,
+  .dropdown-tasks,
+  .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+  }
+
+  .dropdown-messages {
+    margin-left: 5px;
+  }
+
+  .dropdown-tasks {
+    margin-left: -59px;
+  }
+
+  .dropdown-alerts {
+    margin-left: -123px;
+  }
+
+  .dropdown-user {
+    right: 0;
+    left: auto;
+  }
+}
+
+@media(min-width:768px) {
+  body {
+    padding-top: @navbar-height;
+  }
+
+  #page-wrapper {
+    position: inherit;
+    margin: 0 0 0 200px;
+    padding: 40px 15px 150px 15px;
+    min-height: 1300px;
+    border-left: 1px solid #e7e7e7;
+  }
+
+  .navbar-static-side {
+    z-index: 1;
+    position: absolute;
+    width: 200px;
+    margin-top: (@navbar-height + 1);
+  }
+
+  .navbar-top-links {
+    .dropdown-messages,
+    .dropdown-tasks,
+    .dropdown-alerts {
+      margin-left: auto;
+    }
+  }
+}
+
+@media(max-height:600px) and (max-width:767px) {
+  .sidebar-collapse {
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+}
+
+@media(max-height:400px) and (max-width:767px) {
+  .sidebar-collapse {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  border-radius: 0;
+  margin: 0 -15px 0 -16px;
+  background: transparent;
+  border-bottom: 1px dashed #ddd;
+  border-left: 1px solid #e7e7e7;
+  position: fixed;
+  top: @navbar-height;
+  width: 100%;
+  background: #fff;
+  z-index: 1000;
+  .font14();
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.sidebar-collapse {
+  .font14();
+  
+  table {
+    width: 100%;
+  }
+
+  .td-tabs,
+  .td-panels {
+    vertical-align: top;
+  }
+
+  .td-panels {
+    width: 99%;
+    padding-left: 8px;
+
+    ul {
+      padding-left: 12px;
+      list-style: none;
+      margin-bottom: 0;
+    }
+  }
+
+  .tabs-left {
+    word-wrap: break-word;
+    word-break: break-all;
+    width: 32px;
+    padding: 2px 0 0 5px;
+    font-weight: bold;
+
+    >li {
+      >a {
+        padding: 4px 8px;
+      }
+    }
+  }
+
+  .menu-block-title {
+    font-weight: bold;
+    line-height: 28px;
+  }
+}
+
+/* Ajax loading */
+#ajax-loading { 
+  width: 100%; 
+  height: 1px;
+  position: absolute;
+  top: 50px;
+}
+
+.fullwidth .expand { 
+  width: 100%; 
+  height: 1px; 
+  background: #2187e7; 
+  position: absolute;
+     -moz-animation: fullexpand 10s ease-out;
+  -webkit-animation: fullexpand 10s ease-out;
+          animation: fullexpand 10s ease-out;
+}
+
+@-moz-keyframes fullexpand {
+  0%  { width: 0px;}
+  100%{ width: 100%;}  
+}
+@-webkit-keyframes fullexpand {
+  0%  { width: 0px;}
+  100%{ width: 100%;}  
+}
+@keyframes fullexpand {
+  0%  { width: 0px;}
+  100%{ width: 100%;}  
+}
+
+.model-form {
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  .help-block {
+    margin-bottom: 5px;
+  }
+
+  .required {
+    .control-label:before {
+      content: ' * ';
+      color: #F00;
+      vertical-align: -20%;
+      font-size: 16px;
+    }
+  }
+}
+
+.grid-view {
+  .grid-heading {
+    .clearfix();
+    padding: 4px 15px;
+    background-color: @panel-default-heading-bg;
+    border: 1px solid @panel-default-border;
+    border-bottom: none;
+    .border-top-radius(@border-radius-base);
+  }
+
+  .grid-summary {
+    line-height: @input-height-base;
+    float: left !important;
+  }
+
+  .grid-toolbar {
+    float: right !important;
+  }
+
+  .pk {
+    width: 40px;
+  }
+
+  .actions {
+    min-width: 80px;
+    max-width: 100px;
+    .font14();
+  }
+
+  .form-control {
+    height: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .pagination {
+    margin: 6px 0;
+  }
+  .table {
+    margin-bottom: 0;
+    > tbody,
+    > thead,
+    > tfoot {
+      > tr {
+        > td,
+        > th {
+          padding-top: 4px;
+          padding-bottom: 4px;
+          vertical-align: middle;
+        }
+     }
+    }
+  }
+  .table-bordered {
+    > thead {
+      > tr {
+        > td,
+        > th {
+          border-bottom: 1px;
+        }
+      }
+    }
+  }
+}
+
+.detail-view {
+  .detail-view-heading {
+    .clearfix();
+    padding: 4px 15px;
+    background-color: @panel-default-heading-bg;
+    border: 1px solid @panel-default-border;
+    border-bottom: none;
+    .border-top-radius(@border-radius-base);
+  }
+
+  .detail-view-toolbar {
+    float: right !important;
+  }
+
+  .table {
+    > tbody {
+      > tr {
+        > th {
+          width: 30%;
+        }
+        > td {
+          width: 70%;
+        }
+      }
+    }
+  }
+}
+
+.modal-close {
+  display: none;
+}
+
+.modal-dialog {
+  .detail-view {
+    .detail-view-heading {
+      display: none;
+    }
+  }
+
+  .modal-close {
+    display: inline-block;
+  }
+}
+
+.acl-label {
+  margin: 0px;
+  padding-top: 5px;
+  font-weight: normal;
+}
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 3px 0 0;
+  margin-top: 1px \9; // IE8-9
+  line-height: normal;
+}
