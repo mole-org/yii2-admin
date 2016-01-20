@@ -40,7 +40,7 @@ if [[ ! -f $lockfile ]]; then
 deb http://mirrors.163.com/ubuntu trusty main universe
 deb http://mirrors.163.com/ubuntu trusty-updates main universe
 EOT
-	add-apt-repository ppa:nginx/stable	
+	add-apt-repository ppa:nginx/stable
 	add-apt-repository ppa:ondrej/php5-5.6
 	add-apt-repository ppa:chris-lea/redis-server
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
