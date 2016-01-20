@@ -1,25 +1,28 @@
 # 数据结构文档
 
 ## 系统菜单与权限控制
-```
-{
-    "tab": {
-        "label": "系统"
-    },
-    "menus": {
-        "column": {
-            "label": "用户管理"
+
+    {
+        "_tab_": {
+            "label": "系统"
         },
-        "items": [{
-            "label": "角色管理",
-            "route": {
-                "0": "admin/index",
-                "sort": "-id"
-            }
-        }]
-    },
-    "readActions": ["index", "view"],
-    "writeActions": ["create", "update", "delete", "multi-delete", "password"]
-}
-```
+        "_label_": "角色管理"
+        "read": {
+            "menus": [{
+                "column": {
+                    "label": "用户管理"
+                },
+                "items": [{
+                    "label": "角色管理",
+                    "route": ["admin/index"]
+                }]
+            }],
+            "actions": ["index", "view"]
+        },
+        "write": {
+            "actions": ["create", "update", "delete", "multi-delete", "password"]
+        }
+    }
+
+
 ![菜单展示](images/menus.png)

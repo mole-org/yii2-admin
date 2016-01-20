@@ -3,7 +3,6 @@ namespace app\helpers;
 
 use Yii;
 use yii\base\Object;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\Inflector;
 use app\models\AdminRole;
@@ -37,28 +36,32 @@ class Menu extends Object
             if (isset($config[$controller])) {
                 $define = $config[$controller];
                 
-                if (!isset($define['tab']['label'])) {
+                if (!isset($define['_tab_']['label'])) {
                     continue;
                 }
                 
-                $tab = $define['tab']['label'];
+                $tabKey = $define['_tab_']['label'];
                 foreach ($acl as $rule => $true) {
                     if (isset($define[$rule]['menus'])) {
-                        if (!isset($menus[$tab])) {
-                            $menus[$tab] = [];
+                        if (!isset($menus[$tabKey])) {
+                            $menus[$tabKey] = [];
                         }
-                        foreach ($define[$rule]['menus'] as $key => $item) {
-                            if (!isset($menus[$tab][$key])) {
-                                $menus[$tab][$key] = [];
+                        foreach ($define[$rule]['menus'] as $item) {
+                            if (!isset($item['column']) || !isset($item['column']['label']) || !isset($item['items'])) {
+                                continue;
                             }
-                            foreach ($item as &$li) {
+                            
+                            $colKey = $item['column']['label'];
+                            if (!isset($menus[$tabKey][$colKey])) {
+                                $menus[$tabKey][$colKey] = [];
+                            }
+                            foreach ($item['items'] as $li) {
                                 if (isset($li['route'])) {
                                     $li['href'] = Url::to($li['route']);
                                     unset($li['route']);
                                 }
-                                
+                                $menus[$tabKey][$colKey][] = $li;
                             }
-                            $menus[$tab][$key] = array_merge($menus[$tab][$key], $item);
                         }
                     }
                 }
@@ -80,7 +83,7 @@ class Menu extends Object
         foreach ($acls as $controller => $acl) {
             if (isset($config[$controller])) {
                 $define = $config[$controller];
-                $tab = $define['_tab_'];
+                $tab = $define['_tab_']['label'];
                 $label = $define['_label_'];
                 foreach ($acl as $rule => $true) {
                     if (isset($define[$rule])) {

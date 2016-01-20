@@ -21,24 +21,27 @@ class AdminRoleController extends Controller
     public static function acls()
     {
         return [
-            '_tab_' => '系统',
+            '_tab_' => ['label' => '系统'],
             '_label_' => '角色管理',
             'read' => [
                 'label' => '读',
                 'actions' => ['index', 'view'],
                 'menus' => [
-                    '用户管理' => [
-                        [
-                            'label' => '角色列表',
-                            'route' => ['admin-role/index', 'sort' => '-id'],
+                    [
+                        'column' => ['label' => '用户管理'],
+                        'items' => [
+                            [
+                                'label' => '角色列表',
+                                'route' => ['admin-role/index', 'sort' => '-id'],
+                            ],
                         ],
                     ],
                 ],
             ],
             'write' => [
                 'label' => '写',
-                'actions' => ['create', 'update', 'delete', 'multi-delete'],
-            ],
+                'actions' => ['create', 'update', 'delete', 'multi-delete']
+            ]
         ];
     }
 

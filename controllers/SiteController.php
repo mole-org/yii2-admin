@@ -15,22 +15,25 @@ class SiteController extends Controller
     public static function acls()
     {
         return [
-            '_tab_' => '系统',
+            '_tab_' => ['label' => '系统',],
             '_label_' => '系统信息',
             'read' => [
                 'label' => '读',
                 'actions' => ['phpinfo'],
                 'menus' => [
-                    '系统信息' => [
-                        [
-                            'label' => 'phpinfo',
-                            'route' => ['site/phpinfo'],
-                            'data-pjax' => 0,
-                            'target' => '_blank'
-                        ]
-                    ]
-                ]
-            ]
+                    [
+                        'column' => ['label' => '系统信息',],
+                        'items' => [
+                            [
+                                'label' => 'phpinfo',
+                                'route' => ['site/phpinfo'],
+                                'data-pjax' => 0,
+                                'target' => '_blank',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
     
