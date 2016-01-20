@@ -6,14 +6,20 @@
     "tab": {
         "label": "系统"
     },
-    "menu": {
-        "label": "用户管理",
+    "menus": {
+        "column": {
+            "label": "用户管理"
+        },
         "items": [{
             "label": "角色管理",
-            "route": ["admin-role/index"]
+            "route": {
+                "0": "admin/index",
+                "sort": "-id"
+            }
         }]
     },
-    "read": ["index", "view"],
-    "write": ["create", "update", "delete"]
+    "readActions": ["index", "view"],
+    "writeActions": ["create", "update", "delete", "multi-delete", "password"]
 }
 ```
+![菜单展示](images/menus.png)

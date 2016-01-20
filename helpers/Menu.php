@@ -16,6 +16,15 @@ use app\models\AdminRole;
 class Menu extends Object
 {
     /**
+     * @var string default @app/controllers.
+     */
+    public $controllerDir = '@app/controllers';
+    /**
+     * @var string default app\controllers.
+     */
+    public $controllerNamespace = 'app\\controllers';
+    
+    /**
      * According the ACLs collect the menus.
      * @param array $acls
      * @return array
@@ -27,7 +36,12 @@ class Menu extends Object
         foreach ($acls as $controller => $acl) {
             if (isset($config[$controller])) {
                 $define = $config[$controller];
-                $tab = $define['_tab_'];
+                
+                if (!isset($define['tab']['label'])) {
+                    continue;
+                }
+                
+                $tab = $define['tab']['label'];
                 foreach ($acl as $rule => $true) {
                     if (isset($define[$rule]['menus'])) {
                         if (!isset($menus[$tab])) {
@@ -133,9 +147,9 @@ class Menu extends Object
             return $this->_config;
         }
         
-        $controllerDir = Yii::getAlias('@app/controllers');
+        $controllerDir = Yii::getAlias($this->controllerDir);
         $controllerFiles = glob($controllerDir . '/*Controller.php');
-        $controllerNamespace = 'app\\controllers';
+        $controllerNamespace = $this->controllerNamespace;
         $this->_config = [];
     
         foreach ($controllerFiles as $file) {

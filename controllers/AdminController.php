@@ -22,23 +22,20 @@ class AdminController extends Controller
     public static function acls()
     {
         return [
-            '_tab_' => '系统',
-            '_label_' => '用户管理',
+            'tab' => ['label' => '系统'],
             'read' => [
-                'label' => '读',
-                'actions' => ['index', 'view'],
                 'menus' => [
-                    '用户管理' => [
-                        [
-                            'label' => '用户列表',
-                            'route' => ['admin/index', 'sort' => '-id'],
-                        ],
-                    ],
+                    [
+                        'column' => ['label' => '用户管理'],
+                        'items' => [
+                            ['label' => '角色管理', 'route' => ['admin/index', 'sort' => '-id']],
+                        ]
+                    ]
                 ],
+                'actions' => ['index', 'view'],
             ],
             'write' => [
-                'label' => '写',
-                'actions' => ['create', 'update', 'delete', 'multi-delete', 'password'],
+                'actions' => ['create', 'update', 'delete', 'multi-delete', 'password']
             ],
         ];
     }
