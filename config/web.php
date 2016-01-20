@@ -46,12 +46,13 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        // 'urlManager' => [
-        //     'enablePrettyUrl' => true,
-        //     'rules' => [
-        //         '<action:(login|logout|about)>' => 'site/<action>'
-        //     ]
-        // ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<action:(login|logout|about|phpinfo)>' => 'site/<action>'
+            ]
+        ],
         'assetManager' => [
             'class' => 'app\helpers\AssetManager',
             'isPublish' => false,
@@ -81,13 +82,9 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         'allowedIPs' => ['127.0.0.1', '::1', '192.*', '10.*'],
-        'historySize' => 10,
+        'historySize' => 30,
         'on beforeAction' => function($event) {
             Yii::$app->getResponse()->format = 'html';
-            Yii::$app->getView()->off('endBody', [
-                $event->sender,
-                'renderToolbar'
-            ]);
         }
     ];
 

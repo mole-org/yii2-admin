@@ -24,7 +24,7 @@ class SiteController extends Controller
                     '系统信息' => [
                         [
                             'label' => 'phpinfo',
-                            'href' => 'phpinfo',
+                            'route' => ['site/phpinfo'],
                             'data-pjax' => 0,
                             'target' => '_blank'
                         ]
@@ -60,7 +60,7 @@ class SiteController extends Controller
         if ($exception instanceof \yii\base\Exception) {
             $name = $exception->getName();
         } else {
-            $name = Yii::t('yii', 'Error');
+            $name = Yii::t('app', 'Error');
         }
         if ($code) {
             $name .= " (#$code)";
@@ -76,7 +76,7 @@ class SiteController extends Controller
                 $message = $maps[$exception->statusCode];
             }
         } else {
-            $message = Yii::t('yii', 'An internal server error occurred.');
+            $message = Yii::t('app', 'An internal server error occurred.');
         }
         
         if (Yii::$app->getRequest()->getIsAjax()) {
