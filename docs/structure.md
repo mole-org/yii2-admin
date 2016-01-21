@@ -24,5 +24,5 @@
         }
     }
 
-
+![菜单权限控制数据结构](images/menus-structure.png)
 ![菜单展示](images/menus.png)
