@@ -42,7 +42,7 @@ class SiteController extends Controller
      */
     public function excludeActions()
     {
-        return ['login', 'logout', 'error', 'phpinfo'];
+        return ['login', 'logout', 'error', 'phpinfo', 'test'];
     }
     
     /**
@@ -198,7 +198,6 @@ class SiteController extends Controller
     {
         ob_start();
         ob_implicit_flush(false);
-        var_dump(\mole\helpers\Utils::buildUrl('', []));
         return ob_get_clean();
     }
 }
