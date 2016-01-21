@@ -48,7 +48,6 @@ class Controller extends \yii\web\Controller
  
             $excludeActions = $this->excludeActions();
             if (in_array($action->id, $excludeActions)) {
-                var_dump($action->id);exit;
                 return true;
             }
             
