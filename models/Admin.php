@@ -18,14 +18,14 @@ class Admin extends \app\models\base\AdminBase
 
         // attach event or init other things.
         $this->on(self::EVENT_BEFORE_INSERT, function($event) {
-            $this->create_time = date('Y-m-d H:i:s');
+            $this->create_time = time();
             $this->update_time = $this->create_time;
             $this->last_time = $this->create_time;
             $this->password = $this->hashPassword($this->password);
         });
         
         $this->on(self::EVENT_BEFORE_UPDATE, function($event) {
-            $this->update_time = date('Y-m-d H:i:s');
+            $this->update_time = time();
         });
     }
 

@@ -18,9 +18,9 @@ class m140804_094745_initialize_tables extends Migration
 //             'realname' => "string(25) NOT NULL DEFAULT '' COMMENT '真实姓名'",
 //             'status' => "boolean NOT NULL DEFAULT '1' COMMENT '> 0均为正常状态类型；<= 0 均为非正常状态，其值为操作者ID负数。'",
 //             'last_ip' => "string(128) NOT NULL DEFAULT '' COMMENT '最后登录IP'",
-//             'create_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '创建时间'",
-//             'update_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '修改时间'",
-//             'last_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '最后登录时间'",
+//             'create_time' => "integer NOT NULL DEFAULT '0' COMMENT '创建时间'",
+//             'update_time' => "integer NOT NULL DEFAULT '0' COMMENT '修改时间'",
+//             'last_time' => "integer NOT NULL DEFAULT '0' COMMENT '最后登录时间'",
 //         ]);
         $this->createTable($table, [
             'id' => 'pk',
@@ -32,9 +32,9 @@ class m140804_094745_initialize_tables extends Migration
             'realname' => "string(25) NOT NULL DEFAULT ''",
             'status' => "boolean NOT NULL DEFAULT '1'",
             'last_ip' => "string(128) NOT NULL DEFAULT ''",
-            'create_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00'",
-            'update_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00'",
-            'last_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00'",
+            'create_time' => "integer NOT NULL DEFAULT '0'",
+            'update_time' => "integer NOT NULL DEFAULT '0'",
+            'last_time' => "integer NOT NULL DEFAULT '0'",
         ]);
         
         $columns = [
@@ -43,7 +43,7 @@ class m140804_094745_initialize_tables extends Migration
             'last_ip', 'create_time', 'update_time', 'last_time'
         ];
         $rows = [
-            [1,1,0,',0,','admin','21232f297a57a5a743894a0e4a801fc3','Admin',1,'127.0.0.1','2010-12-13 10:57:53','2011-07-23 23:30:07','2011-07-23 23:30:07']
+            [1,1,0,',0,','admin','21232f297a57a5a743894a0e4a801fc3','Admin',1,'127.0.0.1',1453341067,1453341067,1453341067]
         ];
         $this->batchInsert($table, $columns, $rows);
         $this->createIndex('username_UNIQUE', $table, 'username', true);
@@ -55,8 +55,8 @@ class m140804_094745_initialize_tables extends Migration
 //             'admin_path' => "string NOT NULL DEFAULT '' COMMENT '父路径'",
 //             'honor' => "string(15) NOT NULL DEFAULT '' COMMENT '头衔'",
 //             'acls' => "text NOT NULL COMMENT '权限，JSON字符串存储'",
-//             'create_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '创建时间'",
-//             'update_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '修改时间'",
+//             'create_time' => "integer(11) NOT NULL DEFAULT '0' COMMENT '创建时间'",
+//             'update_time' => "integer(11) NOT NULL DEFAULT '0' COMMENT '修改时间'",
 //         ]);
         $this->createTable($table, [
             'id' => 'pk',
@@ -64,12 +64,12 @@ class m140804_094745_initialize_tables extends Migration
             'admin_path' => "string NOT NULL DEFAULT ''",
             'honor' => "string(15) NOT NULL DEFAULT ''",
             'acls' => "text NOT NULL",
-            'create_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00'",
-            'update_time' => "datetime NOT NULL DEFAULT '1970-01-01 00:00:00'",
+            'create_time' => "integer(11) NOT NULL DEFAULT '0'",
+            'update_time' => "integer(11) NOT NULL DEFAULT '0'",
         ]);
         $columns = ['id', 'admin_id', 'admin_path', 'honor', 'acls', 'create_time', 'update_time'];
         $rows = [
-            [1,1,',0,1,','超级管理员','{}','2011-04-12 17:38:50','2011-04-12 17:38:50']
+            [1,1,',0,1,','超级管理员','{}',1453341067,1453341067]
         ];
         $this->batchInsert($table, $columns, $rows);
     }

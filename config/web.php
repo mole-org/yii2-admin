@@ -3,6 +3,7 @@ $config = [
     'id' => 'Admin',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
+        'system',
         'log',
         [
             'class' => 'yii\filters\ContentNegotiator',
@@ -36,12 +37,14 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'system' => 'app\helpers\System',
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'except' => ['yii\web\HttpException*'],
                 ],
             ],
         ],
@@ -50,7 +53,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<action:(login|logout|about|phpinfo)>' => 'site/<action>'
+                '<action:(login|logout|about|phpinfo|test)>' => 'site/<action>'
             ]
         ],
         'assetManager' => [

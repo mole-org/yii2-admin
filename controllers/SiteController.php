@@ -193,4 +193,12 @@ class SiteController extends Controller
         phpinfo();
         return ob_get_clean();
     }
+    
+    public function actionTest()
+    {
+        ob_start();
+        ob_implicit_flush(false);
+        var_dump(Yii::$app->request->acceptableLanguages);
+        return ob_get_clean();
+    }
 }

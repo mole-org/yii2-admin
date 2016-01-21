@@ -23,18 +23,18 @@ class AdminRole extends \app\models\base\AdminRoleBase
                 $this->acls = [];
             }
             if (is_array($this->acls)) {
-                $this->acls = json_encode($this->acls, JSON_FORCE_OBJECT|JSON_UNESCAPED_UNICODE);
+                $this->acls = json_encode($this->acls, JSON_FORCE_OBJECT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
             }
             $this->admin_path = ',' . trim($this->admin_path, ',') . ',';
         });
         
         $this->on(self::EVENT_BEFORE_INSERT, function($event) {
-            $this->create_time = date('Y-m-d H:i:s');
+            $this->create_time = time();
             $this->update_time = $this->create_time;
         });
         
         $this->on(self::EVENT_BEFORE_UPDATE, function($event) {
-            $this->update_time = date('Y-m-d H:i:s');
+            $this->update_time = time();
         });
         
         $this->on(self::EVENT_AFTER_FIND, function($event) {

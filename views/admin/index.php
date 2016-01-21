@@ -44,7 +44,7 @@ $id = 'admin-grid';
         // 'last_ip',
         // 'create_time',
         // 'update_time',
-        'last_time',
+        'last_time:datetime',
         ['class' => ActionColumn::className(), 'template' => '{view} {update} {delete} {password}'],
       ],
     ]); ?>
