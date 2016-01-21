@@ -41,7 +41,6 @@ namespace Faker;
  * @property string $creditCardExpirationDateString
  * @property string $creditCardDetails
  * @property string $bankAccountNumber
- * @method string iban($countryCode = null, $prefix = '', $length = null)
  * @property string $swiftBicNumber
  * @property string $vat
  *
@@ -185,7 +184,7 @@ class Generator
         if ($seed === null) {
             mt_srand();
         } else {
-            mt_srand((int) $seed);
+            mt_srand($seed);
         }
     }
 
@@ -228,18 +227,11 @@ class Generator
         return $this->format($matches[1]);
     }
 
-    /**
-     * @param string $attribute
-     */
     public function __get($attribute)
     {
         return $this->format($attribute);
     }
 
-    /**
-     * @param string $method
-     * @param array $attributes
-     */
     public function __call($method, $attributes)
     {
         return $this->format($method, $attributes);

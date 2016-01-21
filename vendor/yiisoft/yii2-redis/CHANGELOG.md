@@ -1,15 +1,8 @@
 Yii Framework 2 redis extension Change Log
 ==========================================
 
-2.0.5 under development
+2.0.4 under development
 -----------------------
-
-- Bug #37: Fixed detection of open socket (mirocow)
-- Bug #46: Fixed bug to execute session_regenerate_id in PHP 7.0 (githubjeka)
-- Chg #14: Added missing `BLPOP` to `$redisCommands` (samdark)   
-
-2.0.4 May 10, 2015
-------------------
 
 - Enh #8: Auto increment value was not updated when a primary key was explicitly set (cebe, andruha)
 

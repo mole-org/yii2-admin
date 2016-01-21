@@ -135,7 +135,7 @@
         name: undefined,
         // the jQuery selector of the container of the input field
         container: undefined,
-        // the jQuery selector of the input field under the context of the form
+        // the jQuery selector of the input field under the context of the container
         input: undefined,
         // the jQuery selector of the error tag under the context of the container
         error: '.help-block',
@@ -301,27 +301,25 @@
 
             // client-side validation
             $.each(data.attributes, function () {
-                if (!$(this.input).is(":disabled")) {
-                    this.cancelled = false;
-                    // perform validation only if the form is being submitted or if an attribute is pending validation
-                    if (data.submitting || this.status === 2 || this.status === 3) {
-                        var msg = messages[this.id];
-                        if (msg === undefined) {
-                            msg = [];
-                            messages[this.id] = msg;
+                this.cancelled = false;
+                // perform validation only if the form is being submitted or if an attribute is pending validation
+                if (data.submitting || this.status === 2 || this.status === 3) {
+                    var msg = messages[this.id];
+                    if (msg === undefined) {
+                        msg = [];
+                        messages[this.id] = msg;
+                    }
+                    var event = $.Event(events.beforeValidateAttribute);
+                    $form.trigger(event, [this, msg, deferreds]);
+                    if (event.result !== false) {
+                        if (this.validate) {
+                            this.validate(this, getValue($form, this), msg, deferreds, $form);
                         }
-                        var event = $.Event(events.beforeValidateAttribute);
-                        $form.trigger(event, [this, msg, deferreds]);
-                        if (event.result !== false) {
-                            if (this.validate) {
-                                this.validate(this, getValue($form, this), msg, deferreds, $form);
-                            }
-                            if (this.enableAjaxValidation) {
-                                needAjaxValidation = true;
-                            }
-                        } else {
-                            this.cancelled = true;
+                        if (this.enableAjaxValidation) {
+                            needAjaxValidation = true;
                         }
+                    } else {
+                        this.cancelled = true;
                     }
                 }
             });
@@ -474,7 +472,7 @@
         if (attribute.validateOnBlur) {
             $input.on('blur.yiiActiveForm', function () {
                 if (attribute.status == 0 || attribute.status == 1) {
-                    validateAttribute($form, attribute, true);
+                    validateAttribute($form, attribute, !attribute.status);
                 }
             });
         }
@@ -552,7 +550,7 @@
         if (submitting) {
             var errorAttributes = [];
             $.each(data.attributes, function () {
-                if (!$(this.input).is(":disabled") && !this.cancelled && updateInput($form, this, messages)) {
+                if (!this.cancelled && updateInput($form, this, messages)) {
                     errorAttributes.push(this);
                 }
             });

@@ -11,7 +11,6 @@ use Yii;
 use yii\base\ErrorHandler;
 use yii\base\InvalidConfigException;
 use yii\di\Instance;
-use yii\web\MultiFieldSession;
 
 /**
  * Session extends [[\yii\web\Session]] by using MongoDB as session data storage.
@@ -31,15 +30,12 @@ use yii\web\MultiFieldSession;
  * ]
  * ~~~
  *
- * Session extends [[MultiFieldSession]], thus it allows saving extra fields into the [[sessionCollection]].
- * Refer to [[MultiFieldSession]] for more details.
- *
  * @property boolean $useCustomStorage Whether to use custom storage. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-class Session extends MultiFieldSession
+class Session extends \yii\web\Session
 {
     /**
      * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
@@ -65,6 +61,16 @@ class Session extends MultiFieldSession
     {
         parent::init();
         $this->db = Instance::ensure($this->db, Connection::className());
+    }
+
+    /**
+     * Returns a value indicating whether to use custom session storage.
+     * This method overrides the parent implementation and always returns true.
+     * @return boolean whether to use custom storage.
+     */
+    public function getUseCustomStorage()
+    {
+        return true;
     }
 
     /**
@@ -96,7 +102,10 @@ class Session extends MultiFieldSession
             }
         } else {
             // shouldn't reach here normally
-            $collection->insert($this->composeFields($newID, ''));
+            $collection->insert([
+                'id' => $newID,
+                'expire' => time() + $this->getTimeout()
+            ]);
         }
     }
 
@@ -109,20 +118,14 @@ class Session extends MultiFieldSession
     public function readSession($id)
     {
         $collection = $this->db->getCollection($this->sessionCollection);
-        $condition = [
-            'id' => $id,
-            'expire' => ['$gt' => time()],
-        ];
-
-        if (isset($this->readCallback)) {
-            $doc = $collection->findOne($condition);
-            return $doc === null ? '' : $this->extractData($doc);
-        }
-
         $doc = $collection->findOne(
-            $condition,
+            [
+                'id' => $id,
+                'expire' => ['$gt' => time()],
+            ],
             ['data' => 1, '_id' => 0]
         );
+
         return isset($doc['data']) ? $doc['data'] : '';
     }
 
@@ -140,7 +143,11 @@ class Session extends MultiFieldSession
         try {
             $this->db->getCollection($this->sessionCollection)->update(
                 ['id' => $id],
-                $this->composeFields($id, $data),
+                [
+                    'id' => $id,
+                    'data' => $data,
+                    'expire' => time() + $this->getTimeout(),
+                ],
                 ['upsert' => true]
             );
         } catch (\Exception $e) {

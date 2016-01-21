@@ -198,7 +198,7 @@ class SiteController extends Controller
     {
         ob_start();
         ob_implicit_flush(false);
-        var_dump(Yii::$app->request->acceptableLanguages);
+        var_dump(\mole\helpers\Utils::buildUrl('', []));
         return ob_get_clean();
     }
 }

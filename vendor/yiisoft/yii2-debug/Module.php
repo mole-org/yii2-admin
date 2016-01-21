@@ -58,21 +58,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
      */
     public $dataPath = '@runtime/debug';
     /**
-     * @var integer the permission to be set for newly created debugger data files.
-     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
-     * If not set, the permission will be determined by the current environment.
-     * @since 2.0.6
-     */
-    public $fileMode;
-    /**
-     * @var integer the permission to be set for newly created directories.
-     * This value will be used by PHP [[chmod()]] function. No umask will be applied.
-     * Defaults to 0775, meaning the directory is read-writable by owner and group,
-     * but read-only for other users.
-     * @since 2.0.6
-     */
-    public $dirMode = 0775;
-    /**
      * @var integer the maximum number of debug data files to keep. If there are more files generated,
      * the oldest ones will be removed.
      */
@@ -146,16 +131,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
         });
 
         $app->getUrlManager()->addRules([
-            [
-                'class' => 'yii\web\UrlRule',
-                'route' => $this->id,
-                'pattern' => $this->id,
-            ],
-            [
-                'class' => 'yii\web\UrlRule',
-                'route' => $this->id . '/<controller>/<action>',
-                'pattern' => $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>',
-            ]
+            $this->id => $this->id,
+            $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>' => $this->id . '/<controller>/<action>',
         ], false);
     }
 
@@ -212,10 +189,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         echo '<div id="yii-debug-toolbar" data-url="' . Html::encode($url) . '" style="display:none" class="yii-debug-toolbar-bottom"></div>';
         /* @var $view View */
         $view = $event->sender;
-
-        // echo is used in order to support cases where asset manager is not available
-        echo '<style>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.css') . '</style>';
-        echo '<script>' . $view->renderPhpFile(__DIR__ . '/assets/toolbar.js') . '</script>';
+        ToolbarAsset::register($view);
     }
 
     /**

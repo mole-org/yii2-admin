@@ -169,9 +169,7 @@ class Tabs extends Widget
                 }
 
                 Html::addCssClass($linkOptions, ['widget' => 'dropdown-toggle']);
-                if (!isset($linkOptions['data-toggle'])) {
-                    $linkOptions['data-toggle'] = 'dropdown';
-                }
+                $linkOptions['data-toggle'] = 'dropdown';
                 $header = Html::a($label, "#", $linkOptions) . "\n"
                     . Dropdown::widget(['items' => $item['items'], 'clientOptions' => false, 'view' => $this->getView()]);
             } else {
@@ -187,9 +185,7 @@ class Tabs extends Widget
                 if (isset($item['url'])) {
                     $header = Html::a($label, $item['url'], $linkOptions);
                 } else {
-                    if (!isset($linkOptions['data-toggle'])) {
-                        $linkOptions['data-toggle'] = 'tab';
-                    }
+                    $linkOptions['data-toggle'] = 'tab';
                     $header = Html::a($label, '#' . $options['id'], $linkOptions);
                 }
 
@@ -254,9 +250,8 @@ class Tabs extends Widget
 
             $options['id'] = ArrayHelper::getValue($options, 'id', $this->options['id'] . '-dd' . $itemNumber . '-tab' . $n);
             $item['url'] = '#' . $options['id'];
-            if (!isset($item['linkOptions']['data-toggle'])) {
-                $item['linkOptions']['data-toggle'] = 'tab';
-            }
+            $item['linkOptions']['data-toggle'] = 'tab';
+
             $panes[] = Html::tag('div', $content, $options);
 
             unset($item);

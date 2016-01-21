@@ -53,12 +53,6 @@ class Query extends Component implements QueryInterface
      * @see from()
      */
     public $from;
-    /**
-     * @var array cursor options in format: optionKey => optionValue
-     * @see \MongoCursor::addOption()
-     * @see options()
-     */
-    public $options = [];
 
 
     /**
@@ -78,7 +72,7 @@ class Query extends Component implements QueryInterface
     /**
      * Sets the list of fields of the results to return.
      * @param array $fields fields of the results to return.
-     * @return $this the query object itself.
+     * @return static the query object itself.
      */
     public function select(array $fields)
     {
@@ -92,41 +86,11 @@ class Query extends Component implements QueryInterface
      * @param string|array the collection to be selected from. If string considered as the name of the collection
      * inside the default database. If array - first element considered as the name of the database,
      * second - as name of collection inside that database
-     * @return $this the query object itself.
+     * @return static the query object itself.
      */
     public function from($collection)
     {
         $this->from = $collection;
-
-        return $this;
-    }
-
-    /**
-     * Sets the cursor options.
-     * @param array $options cursor options in format: optionName => optionValue
-     * @return $this the query object itself
-     * @see addOptions()
-     */
-    public function options($options)
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
-    /**
-     * Adds additional cursor options.
-     * @param array $options cursor options in format: optionName => optionValue
-     * @return $this the query object itself
-     * @see options()
-     */
-    public function addOptions($options)
-    {
-        if (is_array($this->options)) {
-            $this->options = array_merge($this->options, $options);
-        } else {
-            $this->options = $options;
-        }
 
         return $this;
     }
@@ -144,10 +108,6 @@ class Query extends Component implements QueryInterface
         }
         $cursor->limit($this->limit);
         $cursor->skip($this->offset);
-
-        foreach ($this->options as $key => $value) {
-            $cursor->addOption($key, $value);
-        }
 
         return $cursor;
     }
@@ -450,16 +410,7 @@ class Query extends Component implements QueryInterface
     {
         $sort = [];
         foreach ($this->orderBy as $fieldName => $sortOrder) {
-            switch ($sortOrder) {
-                case SORT_ASC:
-                    $sort[$fieldName] = \MongoCollection::ASCENDING;
-                    break;
-                case SORT_DESC:
-                    $sort[$fieldName] = \MongoCollection::DESCENDING;
-                    break;
-                default:
-                    $sort[$fieldName] = $sortOrder;
-            }
+            $sort[$fieldName] = $sortOrder === SORT_DESC ? \MongoCollection::DESCENDING : \MongoCollection::ASCENDING;
         }
         return $sort;
     }

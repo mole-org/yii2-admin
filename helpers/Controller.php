@@ -27,14 +27,13 @@ class Controller extends \yii\web\Controller
     public function init()
     {
         parent::init();
-        
+
         $request = Yii::$app->getRequest();
         $this->isAjax = $request->getIsAjax();
         $this->isPjax = $request->getIsPjax();
         $this->isPost = $request->getIsPost();
         $this->request = $request;
         $this->user = Yii::$app->user;
-        
         if ($this->isAjax) {
             $this->layout = 'ajax';
         }
@@ -46,8 +45,10 @@ class Controller extends \yii\web\Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
+ 
             $excludeActions = $this->excludeActions();
             if (in_array($action->id, $excludeActions)) {
+                var_dump($action->id);exit;
                 return true;
             }
             

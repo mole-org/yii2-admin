@@ -104,9 +104,6 @@ class TestCase extends Test
      */
     protected function mockApplication($config = null)
     {
-        if (isset(Yii::$app)) {
-            return;
-        }
         Yii::$container = new Container();
         $config = $config === null ? $this->appConfig : $config;
         if (is_string($config)) {
@@ -131,14 +128,6 @@ class TestCase extends Test
      */
     protected function destroyApplication()
     {
-        if (\Yii::$app) {
-            if (\Yii::$app->has('session', true)) {
-                \Yii::$app->session->close();
-            }
-            if (\Yii::$app->has('db', true)) {
-                Yii::$app->db->close();
-            }
-        }
         Yii::$app = null;
         Yii::$container = new Container();
     }

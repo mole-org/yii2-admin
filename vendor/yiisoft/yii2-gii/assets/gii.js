@@ -1,34 +1,5 @@
 yii.gii = (function ($) {
-
-    var $clipboardContainer = $("#clipboard-container"),
-    valueToCopy = '',
-
-    onKeydown = function(e) {
-        var $target;
-        $target = $(e.target);
-
-        if ($target.is("input:visible, textarea:visible")) {
-            return;
-        }
-
-        if (typeof window.getSelection === "function" && window.getSelection().toString()) {
-            return;
-        }
-
-        if (document.selection != null && document.selection.createRange().text) {
-            return;
-        }
-
-        $clipboardContainer.empty().show();
-        return $("<textarea id='clipboard'></textarea>").val(valueToCopy).appendTo($clipboardContainer).focus().select();
-    },
-
-    onKeyup = function(e) {
-        if ($(e.target).is("#clipboard")) {
-            $("#clipboard-container").empty().hide();
-        }
-        return true;
-    };
+    var isActive = $('.default-view').length > 0;
 
     var initHintBlocks = function () {
         $('.hint-block').each(function () {
@@ -63,25 +34,6 @@ yii.gii = (function ($) {
         });
     };
 
-    var fillModal = function(data) {
-        var $modal = $('#preview-modal'),
-         $link = $(this),
-         $modalBody = $modal.find('.modal-body');
-        if (!$link.hasClass('modal-refresh')) {
-            var filesSelector = 'a.' + $modal.data('action');
-            var $files = $(filesSelector);
-            var index = $files.filter('[href="' + $link.attr('href') + '"]').index(filesSelector);
-            var $prev = $files.eq(index - 1);
-            var $next = $files.eq((index + 1 == $files.length ? 0 : index + 1));
-            $modal.data('current', $files.eq(index));
-            $modal.find('.modal-previous').attr('href', $prev.attr('href')).data('title', $prev.data('title'));
-            $modal.find('.modal-next').attr('href', $next.attr('href')).data('title', $next.data('title'));
-        }
-        $modalBody.html(data);
-        valueToCopy = $("<div/>").html(data.replace(/(<(br[^>]*)>)/ig, '\n')).text().trim() + '\n';
-        $modal.find('.content').css('max-height', ($(window).height() - 200) + 'px');
-    };
-
     var initPreviewDiffLinks = function () {
         $('.preview-code, .diff-code, .modal-refresh, .modal-previous, .modal-next').on('click', function () {
             var $modal = $('#preview-modal');
@@ -108,7 +60,18 @@ yii.gii = (function ($) {
                 url: $link.prop('href'),
                 data: $('.default-view form').serializeArray(),
                 success: function (data) {
-                    fillModal(data);
+                    if (!$link.hasClass('modal-refresh')) {
+                        var filesSelector = 'a.' + $modal.data('action');
+                        var $files = $(filesSelector);
+                        var index = $files.filter('[href="' + $link.attr('href') + '"]').index(filesSelector);
+                        var $prev = $files.eq(index - 1);
+                        var $next = $files.eq((index + 1 == $files.length ? 0 : index + 1));
+                        $modal.data('current', $files.eq(index));
+                        $modal.find('.modal-previous').attr('href', $prev.attr('href')).data('title', $prev.data('title'));
+                        $modal.find('.modal-next').attr('href', $next.attr('href')).data('title', $next.data('title'));
+                    }
+                    $modal.find('.modal-body').html(data);
+                    $modal.find('.content').css('max-height', ($(window).height() - 200) + 'px');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $modal.find('.modal-body').html('<div class="error">' + XMLHttpRequest.responseText + '</div>');
@@ -164,12 +127,6 @@ yii.gii = (function ($) {
         });
     };
 
-    $(document).on("keydown", function(e) {
-        if (valueToCopy && (e.ctrlKey || e.metaKey) && (e.which === 67)) {
-            return onKeydown(e);
-        }
-    }).on("keyup", onKeyup);
-
     return {
         autocomplete: function (counter, data) {
             var datum = new Bloodhound({
@@ -201,14 +158,6 @@ yii.gii = (function ($) {
             // model generator: translate table name to model class
             $('#model-generator #generator-tablename').on('blur', function () {
                 var tableName = $(this).val();
-                var tablePrefix = $(this).attr('table_prefix') || '';
-                if (tablePrefix.length) {
-                    // if starts with prefix
-                    if (tableName.slice(0, tablePrefix.length) === tablePrefix) {
-                        // remove prefix
-                        tableName = tableName.slice(tablePrefix.length);
-                    }
-                }
                 if ($('#generator-modelclass').val() === '' && tableName && tableName.indexOf('*') === -1) {
                     var modelClass = '';
                     $.each(tableName.split('_'), function() {

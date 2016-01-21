@@ -113,7 +113,7 @@ class ButtonDropdown extends Widget
         } else {
             $label .= ' <span class="caret"></span>';
             $options = $this->options;
-            if (!isset($options['href']) && $this->tagName === 'a') {
+            if (!isset($options['href'])) {
                 $options['href'] = '#';
             }
             Html::addCssClass($options, ['toggle' => 'dropdown-toggle']);

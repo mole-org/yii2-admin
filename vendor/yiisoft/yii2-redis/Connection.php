@@ -80,7 +80,6 @@ class Connection extends Component
      * @var array List of available redis commands http://redis.io/commands
      */
     public $redisCommands = [
-        'BLPOP', // key [key ...] timeout Remove and get the first element in a list, or block until one is available
         'BRPOP', // key [key ...] timeout Remove and get the last element in a list, or block until one is available
         'BRPOPLPUSH', // source destination timeout Pop a value from a list, push it to another list and return it; or block until one is available
         'CLIENT KILL', // ip:port Kill the connection of a client
@@ -225,7 +224,7 @@ class Connection extends Component
     /**
      * @var resource redis socket connection
      */
-    private $_socket = false;
+    private $_socket;
 
 
     /**
@@ -245,7 +244,7 @@ class Connection extends Component
      */
     public function getIsActive()
     {
-        return $this->_socket !== false;
+        return $this->_socket !== null;
     }
 
     /**
@@ -255,7 +254,7 @@ class Connection extends Component
      */
     public function open()
     {
-        if ($this->_socket !== false) {
+        if ($this->_socket !== null) {
             return;
         }
         $connection = ($this->unixSocket ?: $this->hostname . ':' . $this->port) . ', database=' . $this->database;
@@ -288,7 +287,7 @@ class Connection extends Component
      */
     public function close()
     {
-        if ($this->_socket !== false) {
+        if ($this->_socket !== null) {
             $connection = ($this->unixSocket ?: $this->hostname . ':' . $this->port) . ', database=' . $this->database;
             \Yii::trace('Closing DB connection: ' . $connection, __METHOD__);
             $this->executeCommand('QUIT');
@@ -325,14 +324,9 @@ class Connection extends Component
     }
 
     /**
-     * Allows issuing all supported commands via magic methods.
      *
-     * ```php
-     * $redis->hmset(['test_collection', 'key1', 'val1', 'key2', 'val2'])
-     * ```
-     *
-     * @param string $name name of the missing method to execute
-     * @param array $params method call arguments
+     * @param string $name
+     * @param array $params
      * @return mixed
      */
     public function __call($name, $params)
@@ -363,7 +357,7 @@ class Connection extends Component
      *
      * See [redis protocol description](http://redis.io/topics/protocol)
      * for details on the mentioned reply types.
-     * @throws Exception for commands that return [error reply](http://redis.io/topics/protocol#error-reply).
+     * @trows Exception for commands that return [error reply](http://redis.io/topics/protocol#error-reply).
      */
     public function executeCommand($name, $params = [])
     {
