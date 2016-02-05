@@ -19,5 +19,9 @@ return array(
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'mole\\' => array($vendorDir . '/mole-chen/mole-lib/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
+    'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
+    'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
 );
