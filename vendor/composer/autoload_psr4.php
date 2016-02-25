@@ -17,7 +17,7 @@ return array(
     'yii\\codeception\\' => array($vendorDir . '/yiisoft/yii2-codeception'),
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
-    'mole\\' => array($vendorDir . '/mole-chen/mole-lib/src'),
+    'mole\\helpers\\' => array($vendorDir . '/mole-chen/helpers/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),

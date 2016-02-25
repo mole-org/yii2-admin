@@ -34,3 +34,4 @@ npm-debug.log
 *.sublime-workspace
 /config/*.db
 test.php
+TestController.php

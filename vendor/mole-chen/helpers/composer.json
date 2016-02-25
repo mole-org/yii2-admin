@@ -1,0 +1,15 @@
+{
+    "name": "mole-chen/helpers",
+    "description": "Helpers library",
+    "keywords": ["Utils"],
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "mole\\helpers\\": "src/"
+        }
+    }
+}

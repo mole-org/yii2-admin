@@ -1522,38 +1522,36 @@
         ]
     },
     {
-        "name": "mole-chen/mole-lib",
+        "name": "mole-chen/helpers",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/mole-chen/mole-lib.git",
-            "reference": "111a5fcad4848f2cd75d30e6d9d8bac6548adc1b"
+            "url": "https://github.com/mole-chen/helpers.git",
+            "reference": "ac53c5464537feef41eec3121e0c2bd2141c55aa"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mole-chen/mole-lib/zipball/111a5fcad4848f2cd75d30e6d9d8bac6548adc1b",
-            "reference": "111a5fcad4848f2cd75d30e6d9d8bac6548adc1b",
+            "url": "https://api.github.com/repos/mole-chen/helpers/zipball/ac53c5464537feef41eec3121e0c2bd2141c55aa",
+            "reference": "ac53c5464537feef41eec3121e0c2bd2141c55aa",
             "shasum": ""
         },
         "require": {
-            "guzzlehttp/guzzle": "6.0.*",
-            "php": ">=5.4.0",
-            "yiisoft/yii2": "2.0.*"
+            "php": ">=5.4.0"
         },
-        "time": "2016-02-04 08:25:41",
+        "time": "2016-02-25 08:00:54",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "mole\\": "src/"
+                "mole\\helpers\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "BSD-3-Clause"
         ],
-        "description": "Utils library",
+        "description": "Helpers library",
         "keywords": [
             "utils"
         ]
