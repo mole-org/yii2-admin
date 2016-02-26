@@ -18,11 +18,11 @@
         "yiisoft/yii2-mongodb": "*",
         "yiisoft/yii2-redis": "*",
         "yiisoft/yii2-imagine": "*",
-        "mole-chen/helpers": "dev-master"
+        "mole-chen/helpers": "dev-master",
+        "mole-chen/yii2-debug": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
-        "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
         "yiisoft/yii2-faker": "*",
         "yiisoft/yii2-coding-standards": "*"
