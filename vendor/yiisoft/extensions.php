@@ -75,13 +75,4 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
-  'mole-chen/yii2-debug' => 
-  array (
-    'name' => 'mole-chen/yii2-debug',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@yii/debug' => $vendorDir . '/mole-chen/yii2-debug',
-    ),
-  ),
 );
