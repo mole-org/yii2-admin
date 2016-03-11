@@ -5,12 +5,11 @@ Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
-return [
+$config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
-    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,3 +26,14 @@ return [
     ],
     'params' => $params,
 ];
+
+if (YII_DEBUG) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+        "allowedIPs" => ['*'],
+    ];
+}
+
+return $config;

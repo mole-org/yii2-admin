@@ -91,9 +91,9 @@ if (YII_ENV_DEV) {
         }
     ];
 
-    $config['on beforeAction'] = function($event) {
-        Yii::$app->getView()->off('endBody', [\yii\debug\Module::getInstance(), 'renderToolbar']);
-    };
+    // $config['on beforeAction'] = function($event) {
+    //     Yii::$app->getView()->off('endBody', [\yii\debug\Module::getInstance(), 'renderToolbar']);
+    // };
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
