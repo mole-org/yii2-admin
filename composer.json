@@ -18,7 +18,8 @@
         "yiisoft/yii2-mongodb": "*",
         "yiisoft/yii2-redis": "*",
         "yiisoft/yii2-imagine": "*",
-        "mole-chen/helpers": "dev-master"
+        "mole-chen/helpers": "dev-master",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

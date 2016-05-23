@@ -22,6 +22,18 @@ $config = [
                 ],
             ],
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtpcloud.sohu.com',
+                'port' => '25',
+//                'encryption' => 'ssl',
+                'username' => 'starlight_test_j1Ucql',
+                'password' => 'KtXIOkHLEEyaPOWz',
+            ],
+            'useFileTransport' => false,
+        ],
         'db' => $db,
     ],
     'params' => $params,
